@@ -100,7 +100,6 @@ export const navbarItems = signal<NavbarItem[]>([
     ],
   },
 
-
   {
     text: 'OMI官网',
     href: 'http://omijs.org/',
@@ -140,7 +139,7 @@ export const sidebarItems = signal<NavbarItem[]>([
     icon: 'root-list',
     // path: '/results/forbidden',
     // value: 'result-forbidden',
-},
+  },
   {
     text: '表单页',
     icon: 'edit',

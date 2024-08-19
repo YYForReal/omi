@@ -1,6 +1,6 @@
-import { tag } from 'omi';
-import { BaseMaterial, ComponentInstance } from '../components/materials/base-material';
-import {createComponent} from '../components/materials/renderer';
+import { tag } from 'omi'
+import { BaseMaterial, ComponentInstance } from '../components/materials/base-material'
+import { createComponent } from '../components/materials/renderer'
 // 测试页面
 
 @tag('my-page')
@@ -16,7 +16,7 @@ class MyPage extends BaseMaterial {
       children: [] as ComponentInstance[],
     },
     counter: 0,
-  };
+  }
 
   // 增加按钮实例的方法
   addButton = () => {
@@ -25,48 +25,43 @@ class MyPage extends BaseMaterial {
       type: 'button',
       props: {
         label: '自增按钮',
-        style: 'margin: 5px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer;',
-        click: 'handleClick'
-      },
-      events: {
-        click:JSON.stringify(this.incrementCounter)
       },
       children: [],
-    };
+    }
 
     const alertButton: ComponentInstance = {
       id: `button-${Date.now()}`,
       type: 'button',
       props: {
         label: '警告按钮',
-        style: 'margin: 5px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer;',
-        onclick:'alert("Hello world!")'
+        style:
+          'margin: 5px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer;',
       },
       events: {
-        click:'()=>alert("Hello world!")'
+        // 无效，后续优化为 事件模板
+        click: 'incrementCounter',
       },
       children: [],
-    };
+    }
 
+    this.state.layoutInstance.children.push(newButton)
+    this.state.layoutInstance.children.push(alertButton)
 
-    this.state.layoutInstance.children.push(newButton);
-    this.state.layoutInstance.children.push(alertButton);
-    
-    this.update();
-  };
+    this.update()
+  }
 
   // 计数器增加方法
   incrementCounter() {
     // this.state.counter += 1;
-    const counterText = document.getElementById('counter-text');
+    const counterText = document.getElementById('counter-text')
     if (counterText) {
-      counterText.textContent = `计数: ${this.state.counter}`;
+      counterText.textContent = `计数: ${this.state.counter}`
     }
   }
 
   // 重写 `renderComponent` 方法
   renderComponent(): JSX.Element {
-    return createComponent(this.state.layoutInstance);
+    return createComponent(this.state.layoutInstance)
   }
 
   // 渲染布局
@@ -74,18 +69,18 @@ class MyPage extends BaseMaterial {
     return (
       <div style="text-align: center;">
         <h2>动态组件示例</h2>
-        <button 
-          onClick={this.addButton} 
+        <button
+          onClick={this.addButton}
           style="margin-bottom: 20px; padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;"
         >
           增加按钮
         </button>
-        <div id="counter-text" style="margin-bottom: 20px;">计数: 0</div>
-        <div style="display: flex; justify-content: center;">
-          {this.renderComponent()}
+        <div id="counter-text" style="margin-bottom: 20px;">
+          计数: 0
         </div>
+        <div style="display: flex; justify-content: center;">{this.renderComponent()}</div>
       </div>
-    );
+    )
   }
 }
 

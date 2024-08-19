@@ -13,6 +13,7 @@ export class ButtonComponent extends BaseMaterial {
     return (
       <button {...this.instance.props} onclick={this.instance.events?.onClick} >
         {this.instance.props.label}
+        <slot></slot>
       </button>
     );
   }
